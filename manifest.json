@@ -1,0 +1,15 @@
+{
+  "name": "shopper",
+  "short_name": "shopper",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "",
+  "icons": [
+    {
+      "src": "images/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
