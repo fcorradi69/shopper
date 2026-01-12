@@ -161,10 +161,10 @@ class Binding {
 }
 */
 
-import {CART, ATTRIBUTE} from "lib/models.js";
-import {Store} from "lib/store.js";
-import {Icons} from "lib/icons.js";
-import {Binding} from "lib/bindings.js;
+import { CART, ARTICLE } from "./lib/models.js";
+import { Store } from "./lib/store.js";
+import { Icons } from "./lib/icons.js";
+import { Binding } from "./lib/binding.js";
 
 customElements.define(
   "confirm-dialog",
@@ -716,3 +716,4 @@ const app = {
 
 
 app.init();
+
