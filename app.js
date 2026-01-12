@@ -1,3 +1,4 @@
+/*
 class CART {
   constructor(id, description) {
     this.CartId = id;
@@ -158,6 +159,12 @@ class Binding {
     this.render();
   };
 }
+*/
+
+import {CART, ATTRIBUTE} from "lib/models.js";
+import {Store} from "lib/store.js";
+import {Icons} from "lib/icons.js";
+import {Binding} from "lib/bindings.js;
 
 customElements.define(
   "confirm-dialog",
@@ -706,5 +713,6 @@ const app = {
     app.navigate(route);
   }
 }
+
 
 app.init();
