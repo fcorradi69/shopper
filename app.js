@@ -161,12 +161,6 @@ class Binding {
 }
 */
 
-import { CART, ARTICLE } from "./lib/models.js";
-import { Store } from "./lib/store.js";
-import { Icons } from "./lib/icons.js";
-import { Binding } from "./lib/binding.js";
-import "./components/confirm-dialog.js";
-
 // customElements.define(
 //   "confirm-dialog",
 //   class ConfirmDialog extends HTMLElement {
@@ -250,438 +244,448 @@ import "./components/confirm-dialog.js";
 //   }
 // );
 
-customElements.define(
-  "carts-component",
-  class CartsComponent extends HTMLElement {
-    #store = new Store();
+// customElements.define(
+//   "carts-component",
+//   class CartsComponent extends HTMLElement {
+//     #store = new Store();
 
-    constructor() {
-      super();
+//     constructor() {
+//       super();
 
-      this.innerHTML = /*html*/ `
-            <main>
-              <h1>Shopper</h1>
-              <nav>
-                <button id="addbutton" class="ripple">Aggiungi cart</button>
-                <button id="utilitiesbutton">Utilities</button>
-              </nav>
-              <div class="cards-container"></div>
-            </main>
-          `;
-      this.addbutton = this.querySelector("#addbutton");
-      this.utilitiesbutton = this.querySelector("#utilitiesbutton");
-      this.cardscontainer = this.querySelector("div.cards-container");
-    }
+//       this.innerHTML = /*html*/ `
+//             <main>
+//               <h1>Shopper</h1>
+//               <nav>
+//                 <button id="addbutton" class="ripple">Aggiungi cart</button>
+//                 <button id="utilitiesbutton">Utilities</button>
+//               </nav>
+//               <div class="cards-container"></div>
+//             </main>
+//           `;
+//       this.addbutton = this.querySelector("#addbutton");
+//       this.utilitiesbutton = this.querySelector("#utilitiesbutton");
+//       this.cardscontainer = this.querySelector("div.cards-container");
+//     }
 
-    async connectedCallback() {
-      this.getcarts();
+//     async connectedCallback() {
+//       this.getcarts();
 
-      this.addbutton.addEventListener("click", event => {
-        let items = Store.get();
-        let newid = items.length + 1;
-        let cart = new CART(newid, `Cart ${newid.toString().padStart(2, "0")}`);
-        items.push(cart);
-        Store.set(items);
-        app.navigate("cart", newid);
-      });
+//       this.addbutton.addEventListener("click", event => {
+//         let items = Store.get();
+//         let newid = items.length + 1;
+//         let cart = new CART(newid, `Cart ${newid.toString().padStart(2, "0")}`);
+//         items.push(cart);
+//         Store.set(items);
+//         app.navigate("cart", newid);
+//       });
 
-      this.utilitiesbutton.addEventListener("click", event => app.navigate("utilities"));
-    }
+//       this.utilitiesbutton.addEventListener("click", event => app.navigate("utilities"));
+//     }
 
-    getcarts() {
-      const items = Store.get() ?? [];
-      this.cardscontainer.innerHTML = "";
-      items.forEach((item) => {
-        const btn = document.createElement("button");
-        btn.classList.add("ripple", "card");
-        btn.innerHTML = `${app.images.cart}
-                             <div>${item.Cart}</div>`;
-        btn.addEventListener("click", () => {
-          app.navigate("cart", item.CartId);
-        });
-        this.cardscontainer.appendChild(btn);
-      });
-    }
+//     getcarts() {
+//       const items = Store.get() ?? [];
+//       this.cardscontainer.innerHTML = "";
+//       items.forEach((item) => {
+//         const btn = document.createElement("button");
+//         btn.classList.add("ripple", "card");
+//         btn.innerHTML = `${app.images.cart}
+//                              <div>${item.Cart}</div>`;
+//         btn.addEventListener("click", () => {
+//           app.navigate("cart", item.CartId);
+//         });
+//         this.cardscontainer.appendChild(btn);
+//       });
+//     }
 
-    async disconnectedCallback() {
-      this.innerHTML = "";
-    }
-  }
-);
+//     async disconnectedCallback() {
+//       this.innerHTML = "";
+//     }
+//   }
+// );
 
-customElements.define(
-  "cart-component",
-  class CardComponent extends HTMLElement {
-    constructor() {
-      super();
+// customElements.define(
+//   "cart-component",
+//   class CardComponent extends HTMLElement {
+//     constructor() {
+//       super();
 
-      this.innerHTML = /*html*/ `
-            <main>
-              <h1>
-                <span>Shopper cart</span>
-              </h1>
-              <nav>
-                <button id="backbutton" class="ripple">Carts</button>
-                <button id="addbutton" class="ripple">Agg. articolo</button>
-                <button id="deletebutton" class="ripple">Elimina</button>
-              </nav>
-              <div class="input-control">
-                <label>Nome cart</label>
-                <input type="text" id="description" />
-              </div>
-              <label style="width: 100%">
-                <span>Articoli presi</span>
-                <span id="presi"></span>
-                <span>di</span>
-                <span id="articolicounter"></span>
-                <span style="flex: 1"></span>
-                <span id="totale"></span>
-              </label>
-              <div class="listview"></div> 
-            </main>
-            <article-dialog></article-dialog>
-            <confirm-dialog message="Confermi eliminazione?"></confirm-dialog>
-          `;
-      this.addbutton = this.querySelector("#addbutton");
-      this.backbutton = this.querySelector("#backbutton");
-      this.deletebutton = this.querySelector("#deletebutton");
-      this.description = this.querySelector("#description");
-      this.presi = this.querySelector("#presi");
-      this.articolicounter = this.querySelector("#articolicounter");
-      this.totale = this.querySelector("#totale");
-      this.listview = this.querySelector("div.listview");
-      this.confirmdialog = this.querySelector("confirm-dialog");
-      this.articledialog = this.querySelector("article-dialog");
-      this.cart = new CART();
-    }
+//       this.innerHTML = /*html*/ `
+//             <main>
+//               <h1>
+//                 <span>Shopper cart</span>
+//               </h1>
+//               <nav>
+//                 <button id="backbutton" class="ripple">Carts</button>
+//                 <button id="addbutton" class="ripple">Agg. articolo</button>
+//                 <button id="deletebutton" class="ripple">Elimina</button>
+//               </nav>
+//               <div class="input-control">
+//                 <label>Nome cart</label>
+//                 <input type="text" id="description" />
+//               </div>
+//               <label style="width: 100%">
+//                 <span>Articoli presi</span>
+//                 <span id="presi"></span>
+//                 <span>di</span>
+//                 <span id="articolicounter"></span>
+//                 <span style="flex: 1"></span>
+//                 <span id="totale"></span>
+//               </label>
+//               <div class="listview"></div> 
+//             </main>
+//             <article-dialog></article-dialog>
+//             <confirm-dialog message="Confermi eliminazione?"></confirm-dialog>
+//           `;
+//       this.addbutton = this.querySelector("#addbutton");
+//       this.backbutton = this.querySelector("#backbutton");
+//       this.deletebutton = this.querySelector("#deletebutton");
+//       this.description = this.querySelector("#description");
+//       this.presi = this.querySelector("#presi");
+//       this.articolicounter = this.querySelector("#articolicounter");
+//       this.totale = this.querySelector("#totale");
+//       this.listview = this.querySelector("div.listview");
+//       this.confirmdialog = this.querySelector("confirm-dialog");
+//       this.articledialog = this.querySelector("article-dialog");
+//       this.cart = new CART();
+//     }
 
-    static get observedAttributes() {
-      return ["cartid"];
-    }
+//     static get observedAttributes() {
+//       return ["cartid"];
+//     }
 
-    async connectedCallback() {
-      this.getcart();
+//     async connectedCallback() {
+//       this.getcart();
 
-      this.description.addEventListener("change", (event) => {
-        if (event.target.value) {
-          this.cart.Cart = event.target.value;
-          this.update();
-        }
-      });
+//       this.description.addEventListener("change", (event) => {
+//         if (event.target.value) {
+//           this.cart.Cart = event.target.value;
+//           this.update();
+//         }
+//       });
 
-      this.addbutton.addEventListener("click", (event) => {
-        event.preventDefault();
-        this.articledialog.show(null, this.cart.Articles.length);
-      });
+//       this.addbutton.addEventListener("click", (event) => {
+//         event.preventDefault();
+//         this.articledialog.show(null, this.cart.Articles.length);
+//       });
 
-      this.backbutton.addEventListener("click", (event) => app.navigate("carts"));
+//       this.backbutton.addEventListener("click", (event) => app.navigate("carts"));
 
-      this.deletebutton.addEventListener("click", (event) => this.confirmdialog.show());
-      this.confirmdialog.addEventListener("close", (event) => {
-        if (event.detail) {
-          let items = Store.get().filter((i) => i.CartId !== this.cart.CartId);
-          Store.set(items);
-          app.navigate("carts");
-        }
-      });
+//       this.deletebutton.addEventListener("click", (event) => this.confirmdialog.show());
+//       this.confirmdialog.addEventListener("close", (event) => {
+//         if (event.detail) {
+//           let items = Store.get().filter((i) => i.CartId !== this.cart.CartId);
+//           Store.set(items);
+//           app.navigate("carts");
+//         }
+//       });
 
-      this.articledialog.addEventListener("add", (event) => {
-        let item = event.detail;
-        item.ArticleId = this.cart.Articles.length + 1;
-        this.cart.Articles.push(item);
-        this.update();
-        this.getcart();
-      });
+//       this.articledialog.addEventListener("add", (event) => {
+//         let item = event.detail;
+//         item.ArticleId = this.cart.Articles.length + 1;
+//         this.cart.Articles.push(item);
+//         this.update();
+//         this.getcart();
+//       });
 
-      this.articledialog.addEventListener("update", (event) => {
-        let item = this.cart.Articles.find((i) => i.ArticleId === event.detail.ArticleId);
-        item = event.detail;
-        this.update();
-        this.getcart();
-      });
+//       this.articledialog.addEventListener("update", (event) => {
+//         let item = this.cart.Articles.find((i) => i.ArticleId === event.detail.ArticleId);
+//         item = event.detail;
+//         this.update();
+//         this.getcart();
+//       });
 
-      this.articledialog.addEventListener("delete", (event) => {
-        let items = this.cart.Articles.filter((i) => i.ArticleId !== event.detail);
-        this.cart.Articles = items;
-        this.update();
-        this.getcart();
-      });
-    }
+//       this.articledialog.addEventListener("delete", (event) => {
+//         let items = this.cart.Articles.filter((i) => i.ArticleId !== event.detail);
+//         this.cart.Articles = items;
+//         this.update();
+//         this.getcart();
+//       });
+//     }
 
-    getcart() {
-      const idfromsession = Number(sessionStorage.getItem("shop.cartid")) ?? null;
-      const idfromattribute = Number(this.getAttribute("cartId")) ?? null;
-      let id = 0;
+//     getcart() {
+//       const idfromsession = Number(sessionStorage.getItem("shop.cartid")) ?? null;
+//       const idfromattribute = Number(this.getAttribute("cartId")) ?? null;
+//       let id = 0;
 
-      if (idfromattribute) {
-        sessionStorage.setItem("shop.cartid", idfromattribute);
-        id = idfromattribute;
-      } else {
-        id = idfromsession;
-      }
+//       if (idfromattribute) {
+//         sessionStorage.setItem("shop.cartid", idfromattribute);
+//         id = idfromattribute;
+//       } else {
+//         id = idfromsession;
+//       }
 
-      this.cart = Store.get().find((i) => i.CartId === id);
-      this.description.value = this.cart.Cart;
-      this.presi.innerText = this.cart.Articles.filter((i) => parseFloat(i.Prezzo) > 0).length ?? 0;
-      this.articolicounter.innerText = this.cart.Articles.length ?? 0;
-      this.totale.innerText = this.sum();
-      this.articles();
-    }
+//       this.cart = Store.get().find((i) => i.CartId === id);
+//       this.description.value = this.cart.Cart;
+//       this.presi.innerText = this.cart.Articles.filter((i) => parseFloat(i.Prezzo) > 0).length ?? 0;
+//       this.articolicounter.innerText = this.cart.Articles.length ?? 0;
+//       this.totale.innerText = this.sum();
+//       this.articles();
+//     }
 
-    articles() {
-      const template = document.createElement("template");
-      template.innerHTML = /*html*/ `
-            <div class="listitem">
-              <div>
-                <span id="article" style="flex: 1"></span>
-                <span id="prezzo"></span>
-                <span style="font-size: 0.85rem; color: rgba(0, 0, 0, 0.5)">x</span>
-                <span id="qta"></span>
-              </div>
-              <div style="justify-content: flex-end; font-size: 0.85rem; color: rgba(0, 0, 0, 0.5)">
-                <span style="flex: 1; text-align: right">Totale</span>
-                <span id="totale"></span>
-              </div>
-            </div>
-          `;
-      this.listview.innerHTML = "";
-      this.cart.Articles.forEach((item) => {
-        const listitem = template.content.cloneNode(true).querySelector(".listitem");
-        if (item.Prezzo > 0) listitem.classList.add("completed");
-        listitem.querySelector("#article").innerText = item.Article;
-        listitem.querySelector("#qta").innerText = item.Qta;
-        listitem.querySelector("#prezzo").innerText = parseFloat(item.Prezzo).toLocaleString("it-IT", { minimumFractionDigits: 2 });
-        listitem.querySelector("#totale").innerText = (item.Prezzo * item.Qta).toLocaleString("it-IT", { minimumFractionDigits: 2 });
-        listitem.addEventListener("click", (event) => {
-          event.preventDefault();
-          this.articledialog.show(item);
-        });
-        this.listview.appendChild(listitem);
-      });
-    }
+//     articles() {
+//       const template = document.createElement("template");
+//       template.innerHTML = /*html*/ `
+//             <div class="listitem">
+//               <div>
+//                 <span id="article" style="flex: 1"></span>
+//                 <span id="prezzo"></span>
+//                 <span style="font-size: 0.85rem; color: rgba(0, 0, 0, 0.5)">x</span>
+//                 <span id="qta"></span>
+//               </div>
+//               <div style="justify-content: flex-end; font-size: 0.85rem; color: rgba(0, 0, 0, 0.5)">
+//                 <span style="flex: 1; text-align: right">Totale</span>
+//                 <span id="totale"></span>
+//               </div>
+//             </div>
+//           `;
+//       this.listview.innerHTML = "";
+//       this.cart.Articles.forEach((item) => {
+//         const listitem = template.content.cloneNode(true).querySelector(".listitem");
+//         if (item.Prezzo > 0) listitem.classList.add("completed");
+//         listitem.querySelector("#article").innerText = item.Article;
+//         listitem.querySelector("#qta").innerText = item.Qta;
+//         listitem.querySelector("#prezzo").innerText = parseFloat(item.Prezzo).toLocaleString("it-IT", { minimumFractionDigits: 2 });
+//         listitem.querySelector("#totale").innerText = (item.Prezzo * item.Qta).toLocaleString("it-IT", { minimumFractionDigits: 2 });
+//         listitem.addEventListener("click", (event) => {
+//           event.preventDefault();
+//           this.articledialog.show(item);
+//         });
+//         this.listview.appendChild(listitem);
+//       });
+//     }
 
-    sum() {
-      let totale = 0.0;
-      this.cart.Articles.forEach((item) => {
-        totale += item.Prezzo * item.Qta;
-      });
-      return totale.toLocaleString("it-IT", { minimumFractionDigits: 2 });
-    }
+//     sum() {
+//       let totale = 0.0;
+//       this.cart.Articles.forEach((item) => {
+//         totale += item.Prezzo * item.Qta;
+//       });
+//       return totale.toLocaleString("it-IT", { minimumFractionDigits: 2 });
+//     }
 
-    update() {
-      let items = Store.get().map((item) => {
-        if (item.CartId === this.cart.CartId) {
-          return { ...item, ...this.cart };
-        }
-        return item;
-      });
-      //console.log(items)
-      Store.set(items);
-    }
+//     update() {
+//       let items = Store.get().map((item) => {
+//         if (item.CartId === this.cart.CartId) {
+//           return { ...item, ...this.cart };
+//         }
+//         return item;
+//       });
+//       //console.log(items)
+//       Store.set(items);
+//     }
 
-    async disconnectedCallback() {
-      this.innerHTML = "";
-    }
-  }
-);
+//     async disconnectedCallback() {
+//       this.innerHTML = "";
+//     }
+//   }
+// );
 
-customElements.define(
-  "article-dialog",
-  class ArticleDialog extends HTMLElement {
-    constructor() {
-      super();
+// customElements.define(
+//   "article-dialog",
+//   class ArticleDialog extends HTMLElement {
+//     constructor() {
+//       super();
 
-      this.innerHTML = /*html*/ `
-            <dialog>
-              <section>
-                <header>Articolo</header>
-                <article class="inputs-container">
-                  <div class="input-control">
-                    <label>Articolo</label>
-                    <input type="text" id="articolo" js-model="Article" />
-                  </div>
-                  <div class="inputs-container row">
-                    <div class="input-control">
-                      <label>Prezzo</label>
-                      <input type="text" pattern="[0-9*]" inputmode="numeric" id="prezzo" js-model="Prezzo" />
-                    </div>
-                    <div class="input-control" style="width: 85px">
-                      <label>Qta</label>
-                      <input type="text" id="qta" inputmode="numeric" js-model="Qta" />
-                    </div>
-                  </div>
-                </article>
-                <footer style="margin-top: 10px;">
-                  <button class="ripple" id="save">Salva</button>
-                  <button class="ripple" id="delete">Elimina</button>
-                  <button class="ripple" id="close">Chiudi</button>
-                </footer>
-              </section>
-            </dialog>
-          `;
+//       this.innerHTML = /*html*/ `
+//             <dialog>
+//               <section>
+//                 <header>Articolo</header>
+//                 <article class="inputs-container">
+//                   <div class="input-control">
+//                     <label>Articolo</label>
+//                     <input type="text" id="articolo" js-model="Article" />
+//                   </div>
+//                   <div class="inputs-container row">
+//                     <div class="input-control">
+//                       <label>Prezzo</label>
+//                       <input type="text" pattern="[0-9*]" inputmode="numeric" id="prezzo" js-model="Prezzo" />
+//                     </div>
+//                     <div class="input-control" style="width: 85px">
+//                       <label>Qta</label>
+//                       <input type="text" id="qta" inputmode="numeric" js-model="Qta" />
+//                     </div>
+//                   </div>
+//                 </article>
+//                 <footer style="margin-top: 10px;">
+//                   <button class="ripple" id="save">Salva</button>
+//                   <button class="ripple" id="delete">Elimina</button>
+//                   <button class="ripple" id="close">Chiudi</button>
+//                 </footer>
+//               </section>
+//             </dialog>
+//           `;
 
-      this.article = {};
-      this.isnew = false;
-      this.dialog = this.querySelector("dialog");
-      this.savebutton = this.querySelector("#save");
-      this.deletebutton = this.querySelector("#delete");
-      this.closebutton = this.querySelector("#close");
-      this.inputs = this.querySelectorAll("input[js-model]");
-      this.binding = new Binding(this.dialog);
-      this.deleteEvent = (value) => new CustomEvent("delete", { bubbles: true, cancelable: false, composed: true, detail: value });
-      this.addEvent = (value) => new CustomEvent("add", { bubbles: true, cancelable: false, composed: true, detail: value });
-      this.updateEvent = (value) => new CustomEvent("update", { bubbles: true, cancelable: false, composed: true, detail: value });
-    }
+//       this.article = {};
+//       this.isnew = false;
+//       this.dialog = this.querySelector("dialog");
+//       this.savebutton = this.querySelector("#save");
+//       this.deletebutton = this.querySelector("#delete");
+//       this.closebutton = this.querySelector("#close");
+//       this.inputs = this.querySelectorAll("input[js-model]");
+//       this.binding = new Binding(this.dialog);
+//       this.deleteEvent = (value) => new CustomEvent("delete", { bubbles: true, cancelable: false, composed: true, detail: value });
+//       this.addEvent = (value) => new CustomEvent("add", { bubbles: true, cancelable: false, composed: true, detail: value });
+//       this.updateEvent = (value) => new CustomEvent("update", { bubbles: true, cancelable: false, composed: true, detail: value });
+//     }
 
-    async connectedCallback() {
+//     async connectedCallback() {
 
-      this.inputs.forEach((element) => {
-        element.addEventListener("focus", (event) => element.select());
-      });
+//       this.inputs.forEach((element) => {
+//         element.addEventListener("focus", (event) => element.select());
+//       });
 
-      this.dialog.querySelector("#prezzo").addEventListener("keyup", event => {
-        const regex = /[^0-9.]/gm;
-        let value = event.target.value.replace(regex, "");
-        let values = value.split(".");
-        if (values.length > 1) value = `${values[0]}.${values.slice(1).join("")}`;
-        event.target.value = value;
-      });
+//       this.dialog.querySelector("#prezzo").addEventListener("keyup", event => {
+//         const regex = /[^0-9.]/gm;
+//         let value = event.target.value.replace(regex, "");
+//         let values = value.split(".");
+//         if (values.length > 1) value = `${values[0]}.${values.slice(1).join("")}`;
+//         event.target.value = value;
+//       });
 
-      this.dialog.querySelector("#qta").addEventListener("keyup", event => {
-        const regex = /[^0-9]/gm;
-        let value = event.target.value.replace(regex, "");
-        event.target.value = value;
-      });
+//       this.dialog.querySelector("#qta").addEventListener("keyup", event => {
+//         const regex = /[^0-9]/gm;
+//         let value = event.target.value.replace(regex, "");
+//         event.target.value = value;
+//       });
 
-      this.savebutton.addEventListener("click", event => {
-        event.preventDefault();
-        const regex = /[^0-9.]/gm;
-        this.article.Prezzo = parseFloat(this.article.Prezzo.toString().replace(regex, ""));
-        this.article.Qta = parseInt(this.article.Qta.toString().replace(regex, ""));
+//       this.savebutton.addEventListener("click", event => {
+//         event.preventDefault();
+//         const regex = /[^0-9.]/gm;
+//         this.article.Prezzo = parseFloat(this.article.Prezzo.toString().replace(regex, ""));
+//         this.article.Qta = parseInt(this.article.Qta.toString().replace(regex, ""));
 
-        if (!this.article.Prezzo) this.article.Prezzo = 0;
-        if (!this.article.Qta) this.article.Qta = 1;
-        if (this.isnew) {
-          this.dispatchEvent(this.addEvent(this.article));
-          this.isnew = false;
-        } else {
-          this.dispatchEvent(this.updateEvent(this.article));
-        }
-        setTimeout(() => this.dialog.close(), 150);
-      });
+//         if (!this.article.Prezzo) this.article.Prezzo = 0;
+//         if (!this.article.Qta) this.article.Qta = 1;
+//         if (this.isnew) {
+//           this.dispatchEvent(this.addEvent(this.article));
+//           this.isnew = false;
+//         } else {
+//           this.dispatchEvent(this.updateEvent(this.article));
+//         }
+//         setTimeout(() => this.dialog.close(), 150);
+//       });
 
-      this.deletebutton.addEventListener("click", (event) => {
-        this.dispatchEvent(this.deleteEvent(this.article.ArticleId));
-        this.dialog.close();
-      });
+//       this.deletebutton.addEventListener("click", (event) => {
+//         this.dispatchEvent(this.deleteEvent(this.article.ArticleId));
+//         this.dialog.close();
+//       });
 
-      this.closebutton.addEventListener("click", (event) => {
-        this.dialog.close();
-      });
-    }
+//       this.closebutton.addEventListener("click", (event) => {
+//         this.dialog.close();
+//       });
+//     }
 
-    show(value = null, articles = 0) {
-      this.isnew = value === null;
-      this.article = {};
+//     show(value = null, articles = 0) {
+//       this.isnew = value === null;
+//       this.article = {};
 
-      if (this.isnew) {
-        this.article = new ARTICLE();
-        this.article.ArticleId = articles + 1;
-        this.article.Article = "";
-        this.article.Prezzo = 0.0;
-        this.article.Qta = 1;
-        this.deletebutton.style.display = "none";
-      } else {
-        this.article = value;
-        this.deletebutton.style.display = "flex";
-      }
+//       if (this.isnew) {
+//         this.article = new ARTICLE();
+//         this.article.ArticleId = articles + 1;
+//         this.article.Article = "";
+//         this.article.Prezzo = 0.0;
+//         this.article.Qta = 1;
+//         this.deletebutton.style.display = "none";
+//       } else {
+//         this.article = value;
+//         this.deletebutton.style.display = "flex";
+//       }
 
-      this.binding.DataSource(this.article);
-      this.dialog.showModal();
-    }
+//       this.binding.DataSource(this.article);
+//       this.dialog.showModal();
+//     }
 
-    async disconnectedCallback() {
-      this.innerHTML = "";
-    }
-  }
-);
+//     async disconnectedCallback() {
+//       this.innerHTML = "";
+//     }
+//   }
+// );
 
-customElements.define("utilities-component",
-  class UtilitiesComponent extends HTMLElement {
-    constructor() {
-      super();
+// customElements.define("utilities-component",
+//   class UtilitiesComponent extends HTMLElement {
+//     constructor() {
+//       super();
 
-      this.innerHTML = /*html*/ `
-            <main>
-              <h1>Utilities</h1>
-              <nav>
-                <button id="backbutton" class="ripple">carts</button>
-              </nav>
-              <div class="cards-container">
-                <button class="ripple card" id="exportbutton">
-                  ${app.images.cloudarrowdown}                 
-                  <div>Export</div>
-                </button>
-                <button class="ripple card" id="importbutton">
-                  ${app.images.cloudarrowup}
-                  <div>Import</div>
-                </button>
-              </div>
-              <input type="file" id="fileupload" style="display: none">
-            </main>
-          `;
-      this.backbutton = this.querySelector("#backbutton");
-      this.exportbutton = this.querySelector("#exportbutton");
-      this.importbutton = this.querySelector("#importbutton");
-      this.fileupload = this.querySelector("#fileupload");
-    }
+//       this.innerHTML = /*html*/ `
+//             <main>
+//               <h1>Utilities</h1>
+//               <nav>
+//                 <button id="backbutton" class="ripple">carts</button>
+//               </nav>
+//               <div class="cards-container">
+//                 <button class="ripple card" id="exportbutton">
+//                   ${app.images.cloudarrowdown}                 
+//                   <div>Export</div>
+//                 </button>
+//                 <button class="ripple card" id="importbutton">
+//                   ${app.images.cloudarrowup}
+//                   <div>Import</div>
+//                 </button>
+//               </div>
+//               <input type="file" id="fileupload" style="display: none">
+//             </main>
+//           `;
+//       this.backbutton = this.querySelector("#backbutton");
+//       this.exportbutton = this.querySelector("#exportbutton");
+//       this.importbutton = this.querySelector("#importbutton");
+//       this.fileupload = this.querySelector("#fileupload");
+//     }
 
-    async connectedCallback() {
-      this.backbutton.addEventListener("click", event => app.navigate("carts"));
+//     async connectedCallback() {
+//       this.backbutton.addEventListener("click", event => app.navigate("carts"));
 
-      this.exportbutton.addEventListener("click", event => {
-        const json = JSON.stringify(Store.get(), null, 2);
-        const blob = new Blob([json], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "carts.json";
-        a.click();
-        a.remove();
-        URL.revokeObjectURL(url);
-      })
+//       this.exportbutton.addEventListener("click", event => {
+//         const json = JSON.stringify(Store.get(), null, 2);
+//         const blob = new Blob([json], { type: "application/json" });
+//         const url = URL.createObjectURL(blob);
+//         const a = document.createElement("a");
+//         a.href = url;
+//         a.download = "carts.json";
+//         a.click();
+//         a.remove();
+//         URL.revokeObjectURL(url);
+//       })
 
-      this.importbutton.addEventListener("click", event => {
-        this.fileupload.click();
-      });
+//       this.importbutton.addEventListener("click", event => {
+//         this.fileupload.click();
+//       });
 
-      this.fileupload.addEventListener("change", event => {
-        if (event.target.files.length === 0) return;
-        const file = event.target.files[0];
-        if (file) {
-          const reader = new FileReader();
-          let value = ""
-          reader.onload = () => {
-            value = reader.result?.toString() ?? "";
-          };
+//       this.fileupload.addEventListener("change", event => {
+//         if (event.target.files.length === 0) return;
+//         const file = event.target.files[0];
+//         if (file) {
+//           const reader = new FileReader();
+//           let value = ""
+//           reader.onload = () => {
+//             value = reader.result?.toString() ?? "";
+//           };
 
-          reader.onloadend = () => {
-            let json = JSON.parse(value);
-            Store.set(json);
-          }
+//           reader.onloadend = () => {
+//             let json = JSON.parse(value);
+//             Store.set(json);
+//           }
 
-          reader.readAsText(file, "uft8");
-        }
-        fileupload.value = "";
-      })
+//           reader.readAsText(file, "uft8");
+//         }
+//         fileupload.value = "";
+//       })
 
-    }
+//     }
 
-    async disconnectedCallback() {
-      this.innerHTML = "";
-    }
-  }
-)
+//     async disconnectedCallback() {
+//       this.innerHTML = "";
+//     }
+//   }
+// )
+
+import { CART, ARTICLE } from "./lib/models.js";
+import { Store } from "./lib/store.js";
+import { Icons } from "./lib/icons.js";
+import { Binding } from "./lib/binding.js";
+import "./components/article-dialog.js";
+import "./components/cart.js";
+import "./components/carts.js";
+import "./components/confirm-dialog.js";
+import "./components/utilities.js";
 
 const app = {
   images: new Icons(),
