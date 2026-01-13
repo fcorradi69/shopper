@@ -5,6 +5,10 @@ const ASSETS_TO_CACHE = [
   'app.js',
   'service-worker.js',
   'manifest.json',
+  'lib/binding.js',
+  'lib/icons.js',
+  'lib/models.js',
+  'lib/store.js',
   'images/background.jpg',
   'images/icon.png',
 ];
