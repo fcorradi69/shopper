@@ -8,7 +8,13 @@ const ASSETS_TO_CACHE = [
   'lib/binding.js',
   'lib/icons.js',
   'lib/models.js',
+  'lib/navigate.js',
   'lib/store.js',
+  'components/article-dialog.js',
+  'components/cart.js',
+  'components/carts.js',
+  'components/confirm-dialog.js',
+  'components/utilities.js',
   'images/background.jpg',
   'images/icon.png',
 ];
