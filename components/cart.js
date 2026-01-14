@@ -1,6 +1,7 @@
 
 import { CART } from "../lib/models.js";
 import { Store } from "../lib/store.js";
+import { navigate } from "../lib/navigate.js";
 import "./confirm-dialog.js";
 import "./article-dialog.js";
 
@@ -67,14 +68,14 @@ class CardComponent extends HTMLElement {
       this.articledialog.show(null, this.cart.Articles.length);
     });
 
-    this.backbutton.addEventListener("click", (event) => app.navigate("carts"));
+    this.backbutton.addEventListener("click", (event) => navigate("carts"));
 
     this.deletebutton.addEventListener("click", (event) => this.confirmdialog.show());
     this.confirmdialog.addEventListener("close", (event) => {
       if (event.detail) {
         let items = Store.get().filter((i) => i.CartId !== this.cart.CartId);
         Store.set(items);
-        app.navigate("carts");
+        navigate("carts");
       }
     });
 

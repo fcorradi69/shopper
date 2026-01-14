@@ -1,3 +1,4 @@
+import { navigate } from "../lib/navigate";
 
 class UtilitiesComponent extends HTMLElement {
   constructor() {
@@ -29,7 +30,7 @@ class UtilitiesComponent extends HTMLElement {
   }
 
   async connectedCallback() {
-    this.backbutton.addEventListener("click", event => app.navigate("carts"));
+    this.backbutton.addEventListener("click", event => navigate("carts"));
 
     this.exportbutton.addEventListener("click", event => {
       const json = JSON.stringify(Store.get(), null, 2);

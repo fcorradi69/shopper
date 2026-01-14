@@ -1,6 +1,7 @@
 import { Store } from "../lib/store.js";
 import { CART } from "../lib/models.js";
 import {Icons} from "../lib/icons.js";
+import { navigate } from "../lib/navigate.js";
 
 class CartsComponent extends HTMLElement {
   #store = new Store();
@@ -33,10 +34,10 @@ class CartsComponent extends HTMLElement {
       let cart = new CART(newid, `Cart ${newid.toString().padStart(2, "0")}`);
       items.push(cart);
       Store.set(items);
-      app.navigate("cart", newid);
+      navigate("cart", newid);
     });
 
-    this.utilitiesbutton.addEventListener("click", event => app.navigate("utilities"));
+    this.utilitiesbutton.addEventListener("click", event => navigate("utilities"));
   }
 
   getcarts() {
@@ -48,7 +49,7 @@ class CartsComponent extends HTMLElement {
       btn.innerHTML = `${this.#images.cart}
                              <div>${item.Cart}</div>`;
       btn.addEventListener("click", () => {
-        app.navigate("cart", item.CartId);
+        navigate("cart", item.CartId);
       });
       this.cardscontainer.appendChild(btn);
     });
