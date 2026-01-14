@@ -1,5 +1,6 @@
 import { navigate } from "../lib/navigate.js";
 import { Icons } from "../lib/icons.js";
+import { Store } from "../lib/store.js";
 
 class UtilitiesComponent extends HTMLElement {
   #images = new Icons();
