@@ -11,16 +11,16 @@ class ArticleDialog extends HTMLElement {
                 <header>Articolo</header>
                 <article class="inputs-container">
                   <div class="input-control">
-                    <label>Articolo</label>
+                    <label for="articolo">Articolo</label>
                     <input type="text" id="articolo" js-model="Article" />
                   </div>
                   <div class="inputs-container row">
                     <div class="input-control">
-                      <label>Prezzo</label>
-                      <input type="text" pattern="[0-9*]" inputmode="numeric" id="prezzo" js-model="Prezzo" />
+                      <label for="prezzo">Prezzo</label>
+                      <input type="text" pattern="[0-9*]" inputmode="numeric" id="" js-model="Prezzo" />
                     </div>
                     <div class="input-control" style="width: 85px">
-                      <label>Qta</label>
+                      <label for="qta">Qta</label>
                       <input type="text" id="qta" inputmode="numeric" js-model="Qta" />
                     </div>
                   </div>

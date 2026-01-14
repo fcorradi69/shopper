@@ -20,7 +20,7 @@ class CardComponent extends HTMLElement {
                 <button id="deletebutton" class="ripple">Elimina</button>
               </nav>
               <div class="input-control">
-                <label>Nome cart</label>
+                <label for="description">Nome cart</label>
                 <input type="text" id="description" />
               </div>
               <label style="width: 100%">
