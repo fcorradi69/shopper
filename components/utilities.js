@@ -1,6 +1,9 @@
 import { navigate } from "../lib/navigate.js";
+import { Icons } from "../lib/icons.js";
 
 class UtilitiesComponent extends HTMLElement {
+  #images = new Icons();
+
   constructor() {
     super();
 
@@ -12,11 +15,11 @@ class UtilitiesComponent extends HTMLElement {
               </nav>
               <div class="cards-container">
                 <button class="ripple card" id="exportbutton">
-                  ${app.images.cloudarrowdown}                 
+                  ${this.#images.cloudarrowdown}                 
                   <div>Export</div>
                 </button>
                 <button class="ripple card" id="importbutton">
-                  ${app.images.cloudarrowup}
+                  ${this.#images.cloudarrowup}
                   <div>Import</div>
                 </button>
               </div>
