@@ -1,3 +1,4 @@
+import { Store } from "../lib/store.js";
 
 class CartsComponent extends HTMLElement {
   #store = new Store();

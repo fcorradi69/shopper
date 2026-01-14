@@ -1,3 +1,6 @@
+import { ARTICLE } from "../lib/models.js";
+import { Binding } from "../lib/binding.js";
+
 class ArticleDialog extends HTMLElement {
   constructor() {
     super();

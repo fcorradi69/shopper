@@ -1,4 +1,9 @@
 
+import { CART } from "../lib/models.js";
+import { Store } from "../lib/store.js";
+import "./confirm-dialog.js";
+import "./article-dialog.js";
+
 class CardComponent extends HTMLElement {
   constructor() {
     super();
