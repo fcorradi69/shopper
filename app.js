@@ -688,8 +688,6 @@ import "./components/confirm-dialog.js";
 import "./components/utilities.js";
 
 const app = {
-  images: new Icons(),
-
   navigate(route = "carts", id = null) {
     const container = document.querySelector("#app");
     container.innerHTML = "";

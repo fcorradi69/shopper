@@ -1,8 +1,10 @@
 import { Store } from "../lib/store.js";
 import { CART } from "../lib/models.js";
+import {Icons} from "../lib/icons.js";
 
 class CartsComponent extends HTMLElement {
   #store = new Store();
+  #images = new Icons();
 
   constructor() {
     super();
@@ -43,7 +45,7 @@ class CartsComponent extends HTMLElement {
     items.forEach((item) => {
       const btn = document.createElement("button");
       btn.classList.add("ripple", "card");
-      btn.innerHTML = `${app.images.cart}
+      btn.innerHTML = `${#images.cart}
                              <div>${item.Cart}</div>`;
       btn.addEventListener("click", () => {
         app.navigate("cart", item.CartId);
