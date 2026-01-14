@@ -17,7 +17,7 @@ class ArticleDialog extends HTMLElement {
                   <div class="inputs-container row">
                     <div class="input-control">
                       <label for="prezzo">Prezzo</label>
-                      <input type="text" pattern="[0-9*]" inputmode="numeric" id="" js-model="Prezzo" />
+                      <input type="text" pattern="[0-9*]" inputmode="numeric" id="prezzo" js-model="Prezzo" />
                     </div>
                     <div class="input-control" style="width: 85px">
                       <label for="qta">Qta</label>
