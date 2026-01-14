@@ -45,7 +45,7 @@ class CartsComponent extends HTMLElement {
     items.forEach((item) => {
       const btn = document.createElement("button");
       btn.classList.add("ripple", "card");
-      btn.innerHTML = `${#images.cart}
+      btn.innerHTML = `${this.#images.cart}
                              <div>${item.Cart}</div>`;
       btn.addEventListener("click", () => {
         app.navigate("cart", item.CartId);
