@@ -102,6 +102,7 @@
     select,
     textarea,
     .input {
+      background-color: transparent;
       border: 1px solid transparent;
       border-radius: 3px;
       outline: 1px solid transparent;
@@ -378,4 +379,5 @@
       to {
         opacity: 0;
       }
+
     }
