@@ -1,4 +1,4 @@
-import { navigate } from "../lib/navigate";
+import { navigate } from "../lib/navigate.js";
 
 class UtilitiesComponent extends HTMLElement {
   constructor() {
