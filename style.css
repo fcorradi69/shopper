@@ -154,7 +154,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
+      gap: 10px;
     }
 
     .listview {
@@ -326,7 +326,7 @@
           display: flex;
           align-items: flex-end;
           justify-content: flex-end;
-          gap: 5px;
+          gap: 10px;
         }
       }
     }
