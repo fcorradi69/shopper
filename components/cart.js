@@ -29,7 +29,7 @@ class CardComponent extends HTMLElement {
                 <span>di</span>
                 <span id="articolicounter"></span>
                 <span style="flex: 1"></span>
-                <span id="totale"></span>
+                <span id="totale" style="font-size: 1.15rem; font-weight: bold; color: #b55151;"></span>
               </label>
               <div class="listview"></div> 
             </main>
@@ -118,7 +118,7 @@ class CardComponent extends HTMLElement {
     this.description.value = this.cart.Cart;
     this.presi.innerText = this.cart.Articles.filter((i) => parseFloat(i.Prezzo) > 0).length ?? 0;
     this.articolicounter.innerText = this.cart.Articles.length ?? 0;
-    this.totale.innerText = this.sum();
+    this.totale.innerText = "€ " + this.sum();
     this.articles();
   }
 
